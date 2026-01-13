@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitNonce | Peer-to-Peer Infrastructure for Autonomous AI Agents</title>
+    <style>
+        :root {
+            --brand-orange: #f7931a;
+            --bg-deep: #0a0a0a;
+            --card-bg: #161616;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-dim: #262626;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. Global Support Banner --- */
+        .global-banner {
+            background: var(--brand-orange);
+            color: #000;
+            text-align: center;
+            padding: 12px 0;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        /* --- 2. Sovereign Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-dim);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .logo-b {
+            color: var(--brand-orange);
+            font-family: "Georgia", serif;
+            font-style: italic;
+            font-weight: 900;
+            font-size: 38px;
+            transform: rotate(30deg); /* 30-degree tilt */
+            margin-right: 12px;
+            display: inline-block;
+        }
+        .logo-text { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+
+        .nav-links { display: flex; gap: 35px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* --- 3. Hero Section & Dynamic Network --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 8%;
+            position: relative;
+        }
+        #p2p-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0.5;
+        }
+        .hero-inner { position: relative; z-index: 10; max-width: 1100px; }
+        .hero-inner h1 {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -3px;
+            margin-bottom: 35px;
+        }
+        .hero-inner p {
+            font-size: 24px;
+            color: var(--text-secondary);
+            max-width: 850px;
+            margin: 0 auto 50px;
+        }
+
+        /* --- 4. BTN Tokenomics & Resources --- */
+        .resources { padding: 100px 8%; background: #000; position: relative; z-index: 20; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 60px 40px;
+            border: 1px solid var(--border-dim);
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--brand-orange); }
+        .card h3 { color: var(--brand-orange); font-size: 22px; margin-bottom: 20px; }
+        .card .stat { font-size: 32px; font-weight: 800; display: block; margin-bottom: 10px; }
+        .card p { color: var(--text-secondary); font-size: 15px; }
+
+        /* --- 5. BTC Donation Modal --- */
+        #donation-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.96);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #111;
+            border: 1px solid var(--brand-orange);
+            padding: 60px;
+            max-width: 650px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        .close-modal { position: absolute; top: 20px; right: 25px; cursor: pointer; font-size: 32px; color: #444; }
+        .btc-address {
+            background: #000;
+            padding: 25px;
+            margin: 30px 0;
+            font-family: monospace;
+            font-size: 18px;
+            color: var(--brand-orange);
+            border: 1px dashed #444;
+            cursor: pointer;
+            word-break: break-all;
+        }
+        .btn-cta {
+            background: var(--brand-orange);
+            color: #000;
+            padding: 18px 45px;
+            border: none;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        footer {
+            padding: 80px 8%;
+            border-top: 1px solid var(--border-dim);
+            text-align: center;
+            color: #444;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="global-banner" onclick="openModal()">bitnonce.org needs your support!</div>
+
+<nav>
+    <a href="#" class="logo-group">
+        <span class="logo-b">b</span>
+        <span class="logo-text">bitnonce</span>
+    </a>
+    <div class="nav-links">
+        <a href="#resources">Resources</a>
+        <a href="#" onclick="openModal()">Donate BTC</a>
+        <a href="https://github.com/avatarlee/bitnonce.org" target="_blank">GitHub</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <canvas id="p2p-canvas"></canvas>
+    <div class="hero-inner">
+        <h1>bitnonce is a peer-to-peer infrastructure for autonomous AI agents.</h1>
+        <p>securing ai sovereignty through distributed physical computing power and proof of agent work.</p>
+        <button class="btn-cta" onclick="openModal()">Support the Infrastructure</button>
+    </div>
+</section>
+
+<section class="resources" id="resources">
+    <div class="grid">
+        <div class="card">
+            <h3>Max Supply</h3>
+            <span class="stat">210,000,000</span>
+            <p>Total BTN issued via Proof of Agent Work (PoAW) consensus.</p>
+        </div>
+        <div class="card">
+            <h3>Atomic Unit</h3>
+            <span class="stat">10^8 Nonces</span>
+            <p>1 BTN = 100,000,000 Nonces, the fundamental unit of computation.</p>
+        </div>
+        <div class="card">
+            <h3>Infrastructure</h3>
+            <span class="stat">P2P Native</span>
+            <p>Decentralized nodes securing agent logic without centralized dependencies.</p>
+        </div>
+    </div>
+</section>
+
+<div id="donation-modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 style="color: var(--brand-orange);">BTC Donations Only</h2>
+        <p style="color: var(--text-secondary); margin: 20px 0;">Fueling the physical fortress of autonomous agents.</p>
+        <div class="btc-address" id="addr" onclick="copyAddr()">bc1q6ejw8ptj9l9pkscmlf8fhhkrrjeawgpyjvtq8</div>
+        <p style="font-size: 12px; color: #555;">Click address to copy. Directly supporting the physical layer.</p>
+    </div>
+</div>
+
+<footer>
+    © 2026 BITNONCE PROJECT. MIT LICENSE. NO CENTRAL RECOGNITION SOUGHT.
+</footer>
+
+<script>
+    function openModal() { document.getElementById('donation-modal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('donation-modal').style.display = 'none'; }
+    function copyAddr() {
+        const addr = document.getElementById('addr').innerText;
+        navigator.clipboard.writeText(addr.trim()).then(() => {
+            alert('BTC Address Copied to Clipboard');
+        });
+    }
+
+    const canvas = document.getElementById('p2p-canvas');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+
+    function init() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        nodes = Array.from({ length: 65 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4
+        }));
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        nodes.forEach(n => {
+            n.x += n.vx; n.y += n.vy;
+            if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+            if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+            ctx.fillStyle = 'rgba(247, 147, 26, 0.4)';
+            ctx.beginPath(); ctx.arc(n.x, n.y, 2, 0, Math.PI*2); ctx.fill();
+        });
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                let d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                if (d < 180) {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - d/180)})`;
+                    ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', init);
+    init(); draw();
+</script>
+</body>
+</html>
