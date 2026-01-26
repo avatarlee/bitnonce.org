@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITNONCE.ORG | TRANSPARENT_PHYSICAL_FACTORY</title>
+    <title>BITNONCE.ORG | EPIPLEXITY_REFINERY</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -12,33 +12,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap');
         :root { --p-amber: #f59e0b; }
-        body { background-color: #030303; font-family: 'JetBrains Mono', monospace; color: #a1a1aa; margin: 0; }
+        body { background-color: #030303; font-family: 'JetBrains Mono', monospace; color: #a1a1aa; margin: 0; scroll-behavior: smooth; }
         .no-translate { unicode-bidi: isolate; }
+        .glass-panel { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+        .section-box { border-left: 2px solid #27272a; padding-left: 2rem; }
         
-        /* Industrial Visual Styles */
-        .glass-panel { background: rgba(15, 15, 15, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); }
-        .section-box { border-left: 2px solid #27272a; padding-left: 2rem; position: relative; }
-        .section-box:hover { border-left-color: var(--p-amber); }
-        
-        /* Distillation Animation */
-        @keyframes distill-pulse {
-            0% { transform: rotate(45deg) scale(1); box-shadow: 0 0 0px rgba(245,158,11,0); }
-            50% { transform: rotate(225deg) scale(1.2); box-shadow: 0 0 50px rgba(245,158,11,0.3); }
-            100% { transform: rotate(405deg) scale(1); box-shadow: 0 0 0px rgba(245,158,11,0); }
+        /* Φ-Operator Animation */
+        @keyframes collapse {
+            0% { transform: scale(1) rotate(45deg); opacity: 0.5; }
+            50% { transform: scale(0.6) rotate(225deg); opacity: 1; filter: brightness(1.5); }
+            100% { transform: scale(1) rotate(405deg); opacity: 0.5; }
         }
-        .distill-active { animation: distill-pulse 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .animate-collapse { animation: collapse 1.5s cubic-bezier(0.19, 1, 0.22, 1) infinite; }
         
-        /* Particle Stream Animation */
-        @keyframes flow-right {
-            0% { transform: translateX(-100%); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateX(300%); opacity: 0; }
-        }
-        .flow-particle { animation: flow-right 2s linear infinite; }
+        /* Data Flux Line */
+        .flux-line { background: linear-gradient(90deg, transparent, var(--p-amber), transparent); height: 1px; width: 100%; opacity: 0.2; }
         
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--p-amber); }
     </style>
 </head>
 <body>
@@ -47,7 +38,6 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- DEPT 00: LOGO & NAV ---
         const Navbar = () => (
             <nav className="fixed top-0 w-full h-20 glass-panel z-[100] px-12 flex items-center justify-between border-b border-white/5">
                 <div className="flex items-center gap-4">
@@ -55,10 +45,10 @@
                         <path d="M20 4L36 20L20 36L4 20L20 4Z" stroke="#f59e0b" strokeWidth="2" fill="none" />
                         <rect x="18" y="18" width="4" height="4" fill="#f59e0b" />
                     </svg>
-                    <span className="text-xl font-black italic tracking-tighter text-white no-translate">BITNONCE<span className="text-amber-500 font-light text-sm ml-1">.ORG</span></span>
+                    <span className="text-xl font-black italic tracking-tighter text-white no-translate">BITNONCE</span>
                 </div>
-                <div className="text-[9px] tracking-[0.4em] text-zinc-500 uppercase font-bold hidden md:block">
-                    Physical_Consensus_Factory // <span className="text-amber-500">Node_Online</span>
+                <div className="text-[9px] tracking-[0.5em] text-zinc-500 uppercase font-bold">
+                    Theory_Ref: <span className="text-zinc-300">arXiv:2601.03220v1</span>
                 </div>
             </nav>
         );
@@ -66,114 +56,124 @@
         function App() {
             const [height, setHeight] = useState(840256);
             const [isDistilling, setIsDistilling] = useState(false);
-            const [logs, setLogs] = useState([]);
+            const [epiplexity, setEpiplexity] = useState(0.8421);
+            const [stream, setStream] = useState([]);
 
             useEffect(() => {
                 const interval = setInterval(() => {
-                    const h = Math.random().toString(16).slice(2, 12).toUpperCase();
-                    setLogs(prev => [h, ...prev].slice(0, 10));
-                }, 500);
+                    const h = Math.random().toString(16).slice(2, 14).toUpperCase();
+                    setStream(prev => [h, ...prev].slice(0, 12));
+                    if (!isDistilling) {
+                        setEpiplexity(0.8421 + (Math.random() * 0.005));
+                    }
+                }, 800);
                 return () => clearInterval(interval);
-            }, []);
+            }, [isDistilling]);
 
-            const runDistill = () => {
+            const triggerRefinery = () => {
                 setIsDistilling(true);
+                setEpiplexity(0.9998);
                 setTimeout(() => {
                     setIsDistilling(false);
                     setHeight(h => h + 1);
-                }, 1200);
+                }, 2000);
             };
 
             return (
-                <div className="no-translate min-h-screen bg-[#030303]">
+                <div className="no-translate min-h-screen flex flex-col">
                     <Navbar />
 
-                    {/* DEPT 01: FLUX MONITORING */}
-                    <section className="min-h-screen flex flex-col justify-center px-12 md:px-24 border-b border-white/5">
+                    {/* 01. PHYSICAL FLUX MONITORING */}
+                    <section className="min-h-screen flex flex-col justify-center px-12 md:px-24 border-b border-white/5 pt-20">
                         <div className="max-w-4xl section-box">
-                            <h2 className="text-amber-500 text-[10px] font-bold tracking-[0.6em] mb-4 uppercase">01. Physical_Flux_Monitoring</h2>
-                            <h1 className="text-4xl md:text-6xl font-black text-zinc-100 leading-none mb-6 uppercase italic">Work Ingestion</h1>
-                            <p className="text-zinc-500 text-sm max-w-xl mb-12 uppercase leading-relaxed tracking-wider">
-                                Directly capturing raw energy from Bitcoin Layer 0. Converting hash kinetic work into digital crystalline precursors.
-                            </p>
-                            <div className="glass-panel p-6 font-mono text-[10px] space-y-2 opacity-60">
-                                {logs.map((log, i) => (
-                                    <div key={i} className="truncate tracking-widest text-zinc-400">
-                                        INTAKE_BUFFER_0{i} >> 0x{log} // <span className="text-amber-600">INGESTED</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* DEPT 02 & 03: Φ-OPERATOR & CRYSTALLIZATION */}
-                    <section className="min-h-screen grid grid-cols-1 md:grid-cols-2 border-b border-white/5 bg-[#050505]">
-                        <div className="flex flex-col justify-center px-12 md:px-24 border-r border-white/5">
-                            <div className="section-box">
-                                <h2 className="text-amber-500 text-[10px] font-bold tracking-[0.6em] mb-4 uppercase text-right md:text-left">02. Φ-Operator Laboratory</h2>
-                                <h1 className="text-4xl md:text-5xl font-black text-zinc-100 mb-6 uppercase italic">Path Refinement</h1>
-                                <p className="text-zinc-500 text-sm mb-10 uppercase leading-relaxed">
-                                    Executing Φ-Operator protocols. Folding entropy to achieve physical symbiosis. Reducing random noise to zero.
-                                </p>
-                                <button 
-                                    onClick={runDistill}
-                                    className={`px-10 py-4 font-black text-[10px] uppercase tracking-[0.4em] transition-all border ${isDistilling ? 'bg-amber-600 border-amber-600 text-black' : 'border-zinc-700 text-zinc-400 hover:border-white hover:text-white'}`}
-                                >
-                                    {isDistilling ? 'Refining_Entropy...' : 'Execute_Distill'}
-                                </button>
-                            </div>
-                        </div>
-                        <div className="flex flex-col items-center justify-center relative">
-                            <div className={`w-48 h-48 border-2 ${isDistilling ? 'border-amber-500 distill-active' : 'border-zinc-800 rotate-45'} transition-all duration-700 bg-black shadow-2xl flex items-center justify-center`}>
-                                <div className="text-[8px] font-bold text-amber-500 opacity-40 uppercase tracking-tighter">PH_CORE</div>
-                            </div>
-                            <div className="mt-20 text-center section-box pt-8 border-l-0 border-t-2">
-                                <h2 className="text-zinc-500 text-[10px] font-bold tracking-[0.6em] mb-2 uppercase italic">03. Crystallization Chamber</h2>
-                                <div className="text-2xl font-bold text-white italic">HT_{height}</div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* DEPT 04 & 05: FORENSIC & TESTER */}
-                    <section className="min-h-screen flex items-center px-12 md:px-24 border-b border-white/5">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
-                            <div className="glass-panel p-10 border-t-2 border-amber-600">
-                                <h2 className="text-amber-500 text-[10px] font-bold tracking-[0.6em] mb-6 uppercase">05. Physical Forensic Lab</h2>
-                                <h3 className="text-xl font-bold text-zinc-100 mb-4 uppercase italic">Chain-Link Verification</h3>
-                                <p className="text-zinc-500 text-[11px] leading-loose uppercase">
-                                    Recursive calculus executed at the edge. Verifying the skeletal work of each nonce. Trustless by design, physical by consensus.
-                                </p>
-                            </div>
-                            <div className="glass-panel p-10">
-                                <h2 className="text-zinc-500 text-[10px] font-bold tracking-[0.6em] mb-6 uppercase">04. Physical Hardness Tester</h2>
-                                <h3 className="text-xl font-bold text-zinc-100 mb-4 uppercase italic">Work Density Scan</h3>
-                                <div className="space-y-4">
-                                    <div className="flex justify-between text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
-                                        <span>Resonant_Purity</span>
-                                        <span className="text-amber-500">99.998%</span>
-                                    </div>
-                                    <div className="w-full h-[1px] bg-zinc-800">
-                                        <div className="w-full h-full bg-amber-600 opacity-40"></div>
-                                    </div>
-                                    <p className="text-[8px] text-zinc-600 uppercase italic">Measuring the physical cost of reversal. Current stability: Optimal.</p>
+                            <h2 className="text-amber-500 text-[10px] font-bold tracking-[0.6em] mb-4 uppercase">01. Flux_Monitoring</h2>
+                            <h1 className="text-6xl font-black text-zinc-100 mb-8 uppercase italic">Energy Ingestion</h1>
+                            <div className="grid grid-cols-2 gap-10">
+                                <p className="text-zinc-500 text-sm uppercase leading-loose tracking-widest">Capturing raw computational entropy from the Bitcoin underlying chain. Normalizing Work sequences for Φ-transformation.</p>
+                                <div className="glass-panel p-6 font-mono text-[9px] text-zinc-600 space-y-1">
+                                    {stream.map((s, i) => <div key={i}>RAW_FEED_0{i} >> 0x{s}</div>)}
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* DEPT 06: DISCHARGE */}
-                    <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-12">
-                        <h2 className="text-zinc-700 text-[10px] font-bold tracking-[1em] mb-12 uppercase">06. Entropy_Discharge_Outlet</h2>
-                        <div className="w-px h-40 bg-gradient-to-b from-amber-600/50 to-transparent mb-12"></div>
-                        <p className="text-[10px] uppercase tracking-[0.5em] text-zinc-600 max-w-xl leading-loose">
-                            Continuous purging of non-physical residue. Only the crystallized work survives the refinery. Factory purity: 100%.
-                        </p>
+                    {/* 02. Φ-OPERATOR LAB */}
+                    <section className="min-h-screen grid grid-cols-2 border-b border-white/5 bg-[#050505]">
+                        <div className="flex flex-col justify-center px-12 md:px-24 border-r border-white/5">
+                            <div className="section-box">
+                                <h2 className="text-amber-500 text-[10px] font-bold tracking-[0.6em] mb-4 uppercase">02. Φ-Operator Lab</h2>
+                                <h1 className="text-5xl font-black text-zinc-100 mb-8 uppercase italic">Path Folding</h1>
+                                <p className="text-zinc-500 text-sm mb-12 uppercase leading-relaxed">Executing path folding protocols to strip stochastic noise. Transforming Shannon entropy into structural Epiplexity.</p>
+                                <button 
+                                    onClick={triggerRefinery}
+                                    disabled={isDistilling}
+                                    className={`px-12 py-5 font-bold text-[10px] uppercase tracking-[0.5em] border transition-all ${isDistilling ? 'bg-amber-600 border-amber-600 text-black' : 'border-zinc-700 text-zinc-400 hover:border-white hover:text-white'}`}
+                                >
+                                    {isDistilling ? 'Refining_Complexity...' : 'Execute_Distillation'}
+                                </button>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-center relative bg-black overflow-hidden">
+                            <div className={`w-40 h-40 border border-amber-500/50 ${isDistilling ? 'animate-collapse' : 'rotate-45'} transition-all duration-1000 shadow-[0_0_100px_rgba(245,158,11,0.1)]`} />
+                            {isDistilling && <div className="absolute inset-0 bg-amber-500/5 animate-pulse" />}
+                        </div>
                     </section>
 
-                    {/* FOOTER */}
-                    <footer className="h-24 flex flex-col md:flex-row items-center justify-between px-12 border-t border-white/5 text-[9px] tracking-[0.4em] text-zinc-700 bg-black">
-                        <div className="mb-4 md:mb-0 uppercase">Protocol_v4.0.1 // Node: Symbiosis</div>
-                        <div className="italic uppercase">[ In Work We Distill ] // © 2026 BITNONCE_LABS</div>
+                    {/* 03. CRYSTALLIZATION CHAMBER (The Core Update) */}
+                    <section className="min-h-screen grid grid-cols-2 border-b border-white/5 bg-[#030303]">
+                        <div className="flex items-center justify-center border-r border-white/5 relative">
+                            <div className="text-center">
+                                <div className="text-[10px] text-zinc-600 tracking-[1em] mb-8 uppercase font-black">Crystalline_State</div>
+                                <div className="w-64 h-80 glass-panel flex items-center justify-center relative group">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-amber-600/10 to-transparent" />
+                                    <div className="text-white text-xs font-bold tracking-tighter italic">NONCE_HT_{height}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-center px-12 md:px-24">
+                            <div className="section-box">
+                                <h2 className="text-amber-500 text-[10px] font-bold tracking-[0.6em] mb-4 uppercase">03. Crystallization Chamber</h2>
+                                <h1 className="text-5xl font-black text-zinc-100 mb-10 uppercase italic">Epiplexity Index</h1>
+                                <div className="p-8 glass-panel border-l-4 border-amber-600">
+                                    <div className="flex justify-between items-baseline mb-4">
+                                        <span className="text-[10px] text-zinc-500 tracking-widest uppercase italic">Real-Time Extraction:</span>
+                                        <span className="text-3xl font-mono font-bold text-amber-500">{epiplexity.toFixed(4)}</span>
+                                    </div>
+                                    <div className="w-full h-1 bg-zinc-900 rounded-full overflow-hidden">
+                                        <div className="h-full bg-amber-500 transition-all duration-500" style={{width: `${epiplexity * 100}%`}}></div>
+                                    </div>
+                                    <p className="mt-6 text-[9px] text-zinc-600 uppercase leading-loose italic">Quantifying structural information extracted via computation. High Epiplexity confirms physical grounding.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* 04 & 05. FORENSIC & TESTING */}
+                    <section className="min-h-screen flex items-center px-12 md:px-24 border-b border-white/5 bg-[#080808]">
+                        <div className="grid grid-cols-2 gap-16 w-full">
+                            <div className="glass-panel p-12 hover:border-amber-600/50 transition-colors">
+                                <h2 className="text-zinc-500 text-[10px] font-bold tracking-[0.6em] mb-6 uppercase">04. Hardness Tester</h2>
+                                <h3 className="text-2xl font-black text-white mb-6 italic uppercase">Hash Resistance</h3>
+                                <p className="text-xs text-zinc-500 leading-relaxed uppercase tracking-wider italic">Scanning the physical cost of structural reversal. Current entropy discharge: <span className="text-white">Minimal</span>. Structural integrity: <span className="text-amber-500">Solid</span>.</p>
+                            </div>
+                            <div className="glass-panel p-12 border-t-2 border-amber-600">
+                                <h2 className="text-amber-500 text-[10px] font-bold tracking-[0.6em] mb-6 uppercase">05. Forensic Lab</h2>
+                                <h3 className="text-2xl font-black text-white mb-6 italic uppercase">Chain Verification</h3>
+                                <p className="text-xs text-zinc-500 leading-relaxed uppercase tracking-wider">Recursive skeletal calculus verified at the local node. All crystallized nonces are bound to Bitcoin's physical energy source.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* 06. DISCHARGE */}
+                    <section className="min-h-[60vh] flex flex-col items-center justify-center text-center px-12">
+                        <h2 className="text-zinc-700 text-[10px] font-bold tracking-[1em] mb-12 uppercase italic">06. Entropy_Discharge</h2>
+                        <div className="w-px h-32 bg-gradient-to-b from-amber-600 to-transparent mb-12"></div>
+                        <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-600 max-w-xl italic">Purging non-physical residue. Only crystallized Epiplexity survives the refinement. Factory Purity: 100%.</p>
+                    </section>
+
+                    <footer className="h-20 bg-black flex items-center justify-between px-12 border-t border-white/5 text-[8px] tracking-[0.5em] text-zinc-800 uppercase font-bold">
+                        <div>Unit_ID: BTX-REFINERY-ALPHA</div>
+                        <div>[ No Trust Required ] // In Work We Trust // © 2026</div>
                     </footer>
                 </div>
             );
