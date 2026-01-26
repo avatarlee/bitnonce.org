@@ -3,290 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BitNonce: A Peer-to-Peer AI Agent System</title>   
-    <link rel="icon" type="image/png" href="favicon.png">
+    <title>BITNONCE.ORG | PHYSICAL DISTILLERY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
     <style>
-        :root {
-            --brand-orange: #f7931a;
-            --bg-deep: #0a0a0a;
-            --card-bg: #161616;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --border-dim: #262626;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body, html {
-            background-color: var(--bg-deep);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* --- 1. Global Support Banner --- */
-        .global-banner {
-            background: var(--brand-orange);
-            color: #000;
-            text-align: center;
-            padding: 12px 0;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-            position: relative;
-            z-index: 1001;
-        }
-
-        /* --- 2. Sovereign Navigation --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 8%;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-dim);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo-group {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-        .logo-b {
-            color: var(--brand-orange);
-            font-family: "Georgia", serif;
-            font-style: italic;
-            font-weight: 900;
-            font-size: 38px;
-            transform: rotate(30deg); /* 30-degree tilt */
-            margin-right: 12px;
-            display: inline-block;
-        }
-        .logo-text { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
-
-        .nav-links { display: flex; gap: 35px; }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* --- 3. Hero Section & Dynamic Network --- */
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 8%;
-            position: relative;
-        }
-        #p2p-canvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-            opacity: 0.5;
-        }
-        .hero-inner { position: relative; z-index: 10; max-width: 1100px; }
-        .hero-inner h1 {
-            font-size: 72px;
-            font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: -3px;
-            margin-bottom: 35px;
-        }
-        .hero-inner p {
-            font-size: 24px;
-            color: var(--text-secondary);
-            max-width: 850px;
-            margin: 0 auto 50px;
-        }
-
-        /* --- 4. BTN Tokenomics & Resources --- */
-        .resources { padding: 100px 8%; background: #000; position: relative; z-index: 20; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .card {
-            background: var(--card-bg);
-            padding: 60px 40px;
-            border: 1px solid var(--border-dim);
-            transition: 0.3s;
-        }
-        .card:hover { border-color: var(--brand-orange); }
-        .card h3 { color: var(--brand-orange); font-size: 22px; margin-bottom: 20px; }
-        .card .stat { font-size: 32px; font-weight: 800; display: block; margin-bottom: 10px; }
-        .card p { color: var(--text-secondary); font-size: 15px; }
-
-        /* --- 5. BTC Donation Modal --- */
-        #donation-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.96);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: #111;
-            border: 1px solid var(--brand-orange);
-            padding: 60px;
-            max-width: 650px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-        }
-        .close-modal { position: absolute; top: 20px; right: 25px; cursor: pointer; font-size: 32px; color: #444; }
-        .btc-address {
-            background: #000;
-            padding: 25px;
-            margin: 30px 0;
-            font-family: monospace;
-            font-size: 18px;
-            color: var(--brand-orange);
-            border: 1px dashed #444;
-            cursor: pointer;
-            word-break: break-all;
-        }
-        .btn-cta {
-            background: var(--brand-orange);
-            color: #000;
-            padding: 18px 45px;
-            border: none;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        footer {
-            padding: 80px 8%;
-            border-top: 1px solid var(--border-dim);
-            text-align: center;
-            color: #444;
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap');
+        body { background-color: #000; font-family: 'JetBrains Mono', monospace; color: #71717a; margin: 0; }
+        .glitch-effect:hover { text-shadow: 2px 0 #f59e0b, -2px 0 #3b82f6; }
     </style>
 </head>
 <body>
+    <div id="root"></div>
 
-<div class="global-banner" onclick="openModal()">bitnonce.org needs your support!</div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion } = window.Motion;
 
-<nav>
-    <a href="#" class="logo-group">
-        <span class="logo-b">b</span>
-        <span class="logo-text">bitnonce</span>
-    </a>
-    <div class="nav-links">
-        <a href="#resources">Resources</a>
-        <a href="#" onclick="openModal()">Donate BTC</a>
-        <a href="https://github.com/avatarlee/bitnonce.org" target="_blank">GitHub</a>
-    </div>
-</nav>
+        const GravityIndicator = ({ height }) => (
+            <div className="fixed top-8 left-8 border border-zinc-800 p-4 bg-black/90 backdrop-blur-md z-50">
+                <div className="text-[10px] text-zinc-600 tracking-[0.3em] mb-2 uppercase">Physical_Anchor</div>
+                <div className="flex items-baseline gap-3">
+                    <motion.span 
+                        key={height}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        className="text-amber-500 text-3xl font-bold italic"
+                    >
+                        {height}
+                    </motion.span>
+                    <span className="text-zinc-800 text-xs font-black uppercase">Block_Height</span>
+                </div>
+            </div>
+        );
 
-<section class="hero">
-    <canvas id="p2p-canvas"></canvas>
-    <div class="hero-inner">
-        <h1>BitNonce: A Peer-to-Peer AI Agent System</h1>      
-        <p>securing ai sovereignty through distributed physical computing power and proof of agent work.</p>
-        <button class="btn-cta" onclick="openModal()">Support the System</button>    </div>
-</section>
+        function App() {
+            const [height, setHeight] = useState(840123);
+            const [isResonating, setIsResonating] = useState(false);
+            const [rawFlux, setRawFlux] = useState([]);
 
-<section class="resources" id="resources">
-    <div class="grid">
-        <div class="card">
-            <h3>Max Supply</h3>
-            <span class="stat">210,000,000</span>
-            <p>Total BTN issued via Proof of Agent Work (PoAW) consensus.</p>
-        </div>
-        <div class="card">
-            <h3>Atomic Unit</h3>
-            <span class="stat">10^8 Nonces</span>
-            <p>1 BTN = 100,000,000 Nonces, the fundamental unit of computation.</p>
-        </div>
-        <div class="card">
-            <h3>Infrastructure</h3>
-            <span class="stat">P2P Native</span>
-            <p>Decentralized nodes securing agent logic without centralized dependencies.</p>
-        </div>
-    </div>
-</section>
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    const hash = Math.random().toString(16).substring(2, 12).toUpperCase();
+                    setRawFlux(prev => [hash, ...prev].slice(0, 15));
+                }, 300);
+                return () => clearInterval(interval);
+            }, []);
 
-<div id="donation-modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2 style="color: var(--brand-orange);">BTC Donations Only</h2>
-        <p style="color: var(--text-secondary); margin: 20px 0;">Fueling the physical fortress of autonomous agents.</p>
-        <div class="btc-address" id="addr" onclick="copyAddr()">bc1q6ejw8ptj9l9pkscmlf8fhhkrrjeawgpyjvtq8</div>
-        <p style="font-size: 12px; color: #555;">Click address to copy. Directly supporting the physical layer.</p>
-    </div>
-</div>
+            const triggerResonance = () => {
+                setIsResonating(true);
+                setHeight(h => h + 1);
+                setTimeout(() => setIsResonating(false), 600);
+            };
 
-<footer>
-    © 2026 BITNONCE PROJECT. MIT LICENSE. NO CENTRAL RECOGNITION SOUGHT.
-</footer>
+            return (
+                <div className={`min-h-screen border-[12px] border-zinc-950 transition-all duration-500 ${isResonating ? 'border-amber-900/20' : ''}`}>
+                    <GravityIndicator height={height} />
 
-<script>
-    function openModal() { document.getElementById('donation-modal').style.display = 'flex'; }
-    function closeModal() { document.getElementById('donation-modal').style.display = 'none'; }
-    function copyAddr() {
-        const addr = document.getElementById('addr').innerText;
-        navigator.clipboard.writeText(addr.trim()).then(() => {
-            alert('BTC Address Copied to Clipboard');
-        });
-    }
+                    {/* TOP STATUS BAR */}
+                    <header className="h-16 px-10 flex items-center justify-between border-b border-zinc-900 bg-black">
+                        <div className="text-xl font-black italic tracking-tighter text-zinc-100">
+                            BIT<span className="text-amber-600 font-light">NONCE</span>
+                        </div>
+                        <div className="text-[9px] tracking-[0.4em] text-zinc-600 uppercase">
+                            Status: <span className="text-amber-500">Distilling_Process_Active</span>
+                        </div>
+                    </header>
 
-    const canvas = document.getElementById('p2p-canvas');
-    const ctx = canvas.getContext('2d');
-    let nodes = [];
+                    <main className="grid grid-cols-12 min-h-[calc(100vh-104px)]">
+                        {/* 01. INTAKE */}
+                        <section className="col-span-3 border-r border-zinc-900 p-8">
+                            <h2 className="text-[10px] text-zinc-500 mb-8 tracking-widest uppercase border-l border-amber-600 pl-4">01. Raw_Work_Intake</h2>
+                            <div className="space-y-2 opacity-30 text-[9px] font-mono">
+                                {rawFlux.map((h, i) => <div key={i} className="truncate">IN_DATA::0x{h}..{Math.floor(Math.random()*999)}</div>)}
+                            </div>
+                        </section>
 
-    function init() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        nodes = Array.from({ length: 65 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4
-        }));
-    }
+                        {/* 02. REFINERY */}
+                        <section className="col-span-6 flex flex-col items-center justify-center p-12 relative">
+                            <div className="mb-12 text-center">
+                                <h1 className="text-3xl font-black text-zinc-100 tracking-tighter italic mb-2 uppercase">Physical_Distillery</h1>
+                                <p className="text-[9px] text-zinc-600 tracking-[0.2em] uppercase">Extracting trustless crystalline from Bitcoin work</p>
+                            </div>
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        nodes.forEach(n => {
-            n.x += n.vx; n.y += n.vy;
-            if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
-            if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
-            ctx.fillStyle = 'rgba(247, 147, 26, 0.4)';
-            ctx.beginPath(); ctx.arc(n.x, n.y, 2, 0, Math.PI*2); ctx.fill();
-        });
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                let d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
-                if (d < 180) {
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - d/180)})`;
-                    ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
-                }
-            }
+                            <div className="relative w-72 h-72 border border-zinc-900 rounded-full flex items-center justify-center group">
+                                <motion.div 
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-0 border-[0.5px] border-dashed border-zinc-800 rounded-full"
+                                />
+                                <div className="z-10 flex flex-col items-center">
+                                    <motion.div 
+                                        animate={isResonating ? { scale: [1, 1.2, 1], rotate: 135 } : { rotate: 45 }}
+                                        className="w-20 h-20 bg-zinc-950 border border-amber-600 shadow-[0_0_40px_rgba(217,119,6,0.1)] mb-10 transition-colors"
+                                    />
+                                    <button 
+                                        onClick={triggerResonance}
+                                        className="px-10 py-3 bg-zinc-100 text-black text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-amber-600 hover:text-white transition-all"
+                                    >
+                                        Execute_Distill
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* 03. FORENSIC & OUTLET */}
+                        <section className="col-span-3 border-l border-zinc-900 p-8 bg-zinc-950/30 flex flex-col justify-between">
+                            <div>
+                                <h2 className="text-[10px] text-zinc-500 mb-8 tracking-widest uppercase text-right border-r border-amber-600 pr-4">05. Forensic_Verification</h2>
+                                <div className="p-4 border border-zinc-800 bg-black/50 space-y-4">
+                                    <div className="flex justify-between text-[9px] uppercase"><span className="text-zinc-600">Purity:</span><span className="text-amber-500">99.998%</span></div>
+                                    <div className="flex justify-between text-[9px] uppercase"><span className="text-zinc-600">Density:</span><span className="text-zinc-100">Crystalline</span></div>
+                                    <div className="h-[1px] bg-zinc-900" />
+                                    <p className="text-[8px] text-zinc-600 leading-relaxed uppercase italic">Zero-trust verification protocol. Computed via Φ-Calculus at local node.</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h2 className="text-[10px] text-zinc-500 mb-4 tracking-widest uppercase">04. Entropy_Outlet</h2>
+                                <div className="h-24 bg-zinc-900/20 border border-zinc-900 flex items-center justify-center text-[8px] text-zinc-800 uppercase text-center p-4">
+                                    Continuous discharge of random noise & non-physical data
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    <footer className="h-10 border-t border-zinc-900 flex items-center px-10 justify-between bg-black text-[8px] tracking-[0.3em] text-zinc-700">
+                        <div>PROTOCOL_V: 4.0.1_STABLE</div>
+                        <div>© 2026 BITNONCE_LABS // NO_TRUST_REQUIRED</div>
+                    </footer>
+                </div>
+            );
         }
-        requestAnimationFrame(draw);
-    }
-    window.addEventListener('resize', init);
-    init(); draw();
-</script>
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
